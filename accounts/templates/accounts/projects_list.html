@@ -1,0 +1,22 @@
+{% extends "accounts/base.html"%}
+
+{% block content %}
+{% if all_projects %}
+    <ul>
+    {% for project in all_projects%}
+    <li>
+        <a href="{% url 'project_detail' prj_id=project.id %}">{{project.name}}</a>
+        {% if perms.accounts.delete_project %}
+            <a href="{% url 'project_report' prj_id=project.id %}">get report</a>
+            <a href={% url 'project_delete' prj_id=project.id %} >delete</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% if perms.acoounts.project_add %}
+    <br>
+    <a href={% url 'project_add' %} >Add new project</a>
+    </br>
+{% endif %}
+{% endblock %}

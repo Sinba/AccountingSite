@@ -1,0 +1,20 @@
+{% extends "accounts/base.html" %}
+
+{% block content %}
+<h1>Welcome to my accounting site!</h1>
+<p>
+<a href={% url 'employees_list' %}>all employees in company</a>
+</p>
+<p>
+<a href={% url 'projects_list' %}>all projects</a>
+</p>
+<p>
+<a href={% url 'departments_list' %}>all departments</a>
+</p>
+<p>
+<a href={% url 'task_list' %}>employees and tasks</a>
+</p>
+<p>
+<a href={% url 'employee_statistics' %}>show employee statistics</a>
+</p>
+{% endblock %}

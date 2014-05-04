@@ -1,0 +1,23 @@
+{% extends 'accounts/base.html' %}
+
+{% block content %}
+<h1>Employees and tasks</h1>
+<table>
+    <tr>
+        <td>Task</td>
+        <td>Employee</td>
+        <td>Project</td>
+        <td>Description</td>
+    </tr>
+
+    {% for task in tasks %}
+        <tr>
+            <td><a href={% url 'task_detail' task_id=task.id %}>{{task.task_name}}</a></td>
+            <td>{{task.employee}}</td>
+            <td>{{task.project}}</td>
+            <td>{{task.description}}</td>
+        </tr>
+    {% endfor %}
+</table>
+<a href={% url 'task_add' %}>Add new task for employee</a>
+{% endblock %}

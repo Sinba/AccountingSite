@@ -1,0 +1,10 @@
+{% extends "accounts/base.html" %}
+
+{% block content %}
+<form action={% url 'project_detail' prj_id=prj_id %} method="post">{% csrf_token %}
+<table>
+    {{form.as_table}}
+</table>
+<input type="submit" value="Save">
+</form>
+{% endblock %}

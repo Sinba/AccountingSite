@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}My amazing site{% endblock %}</title>
+</head>
+
+<body>
+    <div id="sidebar">
+        {% block sidebar %}
+        <ul>
+            <li><a href="/">Home</a></li>
+            {% if user.is_authenticated %}
+            <li>Hi, <a href="{% url 'profile' %}"><b>{{user.username}}</b></a>  <a href="{% url 'logout' %}">Log out</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Log in</a></li>
+            {% endif %}
+        </ul>
+        {% endblock %}
+    </div>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

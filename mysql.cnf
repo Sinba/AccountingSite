@@ -1,0 +1,5 @@
+[client]
+database = accounting_site
+user = monty
+password = some_pass
+default-character-set = utf8

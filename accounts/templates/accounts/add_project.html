@@ -1,0 +1,11 @@
+{% extends "accounts/base.html" %}
+
+{% block content %}
+<h1>Add project</h1>
+<form action="/projects/add" method="post">{% csrf_token %}
+<table>
+{{ form.as_table }}
+</table>
+<input type="submit" value="Save" />
+</form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "accounts/base.html" %}
+{% block content %}
+<table>
+    <tr>
+        <td>Task</td>
+        <td>Elapsed time in hour</td>
+    </tr>
+    {% for key, value in task_reports.items %}
+    <tr>
+        <td>{{key}}</td>
+        <td>{{value}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td><b>Summary time</b></td>
+        <td><b>{{summary_time}}</b></td>
+    </tr>
+</table>
+{% endblock %} 

@@ -1,0 +1,29 @@
+{% extends "accounts/base.html"%}
+
+{% block content %}
+
+{% load mptt_tags %}
+<h1>departments and employees in company:</h1>
+<ul>
+    {% recursetree nodes %}
+        <li>
+            {% if perms.accounts.edit_department %}
+            <a  href="{% url 'detail_dep' dep_id=node.id %}"><b>{{ node.name }}</b></a>
+            {% endif %}
+            {% for empl in employees.all %}
+                {% if empl.department.name == node.name %}
+                    <p>{{empl.user.username}}</p>
+                {% endif %}
+            {% endfor %}
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul>
+<br> 
+<a href={% url 'add_dep' %} >Add new department</a>
+</br>
+{% endblock %}

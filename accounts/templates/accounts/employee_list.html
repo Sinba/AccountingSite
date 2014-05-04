@@ -1,0 +1,22 @@
+{% extends "accounts/base.html" %}
+
+{% block content %}
+<ul>
+{% for employee in employees %}
+    <li> 
+        {% if perms.accounts.change_employee%}
+        <a href={% url 'employee_detail' usr_id=employee.user.id %}>{{employee.user.username}}</a>
+        {% else %}
+            {{employee.user.username}}
+        {% endif%}
+
+        {% if perms.accounts.delete_employee %}
+        <a href={% url 'employee_delete' usr_id=employee.user.id %}>Delete</a>
+        {% endif %}
+    </li>
+{% endfor %}
+</ul>
+{% if perms.accounts.add_employee %}
+<a href={% url 'employee_add' %}>Add new employee</a>
+{% endif %}
+{% endblock %}

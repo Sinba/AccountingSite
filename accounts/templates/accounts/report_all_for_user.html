@@ -1,0 +1,17 @@
+{% extends "accounts/base.html" %}
+{% block content %}
+<table>
+    <tr>
+        <td>Task</td>
+        <td>Date</td>
+        <td>Elapsed Time In Hour</td>
+    </tr>
+    {% for report in reports %}
+    <tr>
+        <td>{{report.task}}</td>
+        <td>{{report.date}}</td>
+        <td>{{report.elapsed_time_in_hour}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
