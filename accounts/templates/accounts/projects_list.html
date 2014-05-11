@@ -5,7 +5,11 @@
     <ul>
     {% for project in all_projects%}
     <li>
+        {% if perms.accounts.change_project %}
         <a href="{% url 'project_detail' prj_id=project.id %}">{{project.name}}</a>
+        {% else %}
+        {{project.name}}
+        {% endif %}
         {% if perms.accounts.delete_project %}
             <a href="{% url 'project_report' prj_id=project.id %}">get report</a>
             <a href={% url 'project_delete' prj_id=project.id %} >delete</a>
@@ -14,7 +18,7 @@
     {% endfor %}
     </ul>
 {% endif %}
-{% if perms.acoounts.project_add %}
+{% if perms.accounts.add_project %}
     <br>
     <a href={% url 'project_add' %} >Add new project</a>
     </br>

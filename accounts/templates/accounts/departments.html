@@ -7,8 +7,10 @@
 <ul>
     {% recursetree nodes %}
         <li>
-            {% if perms.accounts.edit_department %}
+            {% if perms.accounts.change_department %}
             <a  href="{% url 'detail_dep' dep_id=node.id %}"><b>{{ node.name }}</b></a>
+            {% else %}
+            <b>{{ node.name }}</b>
             {% endif %}
             {% for empl in employees.all %}
                 {% if empl.department.name == node.name %}
@@ -24,6 +26,8 @@
     {% endrecursetree %}
 </ul>
 <br> 
+{% if perms.accounts.add_department %}
 <a href={% url 'add_dep' %} >Add new department</a>
+{% endif %}
 </br>
 {% endblock %}

@@ -85,13 +85,15 @@ def departments_list(request):
 
 
 ### Employee
-
+@login_required
 def employees_list(request):
     employees = models.Employee.objects.all()
     return render(request, 'accounts/employee_list.html',{
                   'employees': employees
                   })
 
+@login_required
+@group_required('manager')
 def employee_add(request):
     form = forms.UserForm()
     EmployeeFormSet = inlineformset_factory(User,
@@ -114,6 +116,8 @@ def employee_add(request):
                   "formset": formset,
                   })
 
+@login_required
+@group_required('manager')
 def employee_detail(request, usr_id=None):
     EmployeeFormSet = inlineformset_factory(User, models.Employee, form=forms.EmployeeForm, can_delete=False)
     user = get_object_or_404(User, pk=usr_id)
@@ -133,6 +137,8 @@ def employee_detail(request, usr_id=None):
             formset.save()
         return redirect('employees_list')
 
+@login_required
+@group_required('manager')
 def employee_delete(request, usr_id):
     user = get_object_or_404(User, pk=usr_id)
     user.delete()
@@ -145,13 +151,15 @@ def employee_delete(request, usr_id):
 
 
 ### Task 
-
+@login_required
 def task_list(request):
     tasks = models.Task.objects.all()
     return render(request, 'accounts/task_list.html', {
                   "tasks": tasks,
                   })
 
+@login_required
+@group_required('manager')
 def task_add(request):
     if request.method == 'POST':
         form = forms.TaskForm(request.POST)
@@ -164,6 +172,8 @@ def task_add(request):
                       "form": form
                       })
 
+@login_required
+@group_required('manager')
 def task_detail(request, task_id):
     task = get_object_or_404(models.Task, pk=task_id)
     if request.method == 'POST':
@@ -177,7 +187,8 @@ def task_detail(request, task_id):
                       })
 
 ###Report
-
+@login_required
+@group_required('manager')
 def report_add(request):
     user = get_object_or_404(User, pk=request.user.id)
     employee = get_object_or_404(models.Employee, user=user)
@@ -192,6 +203,7 @@ def report_add(request):
                   "form": form,
                   })
 
+@login_required
 def report_all_for_employee(request):
     user = get_object_or_404(User, pk=request.user.id)
     employee = get_object_or_404(models.Employee, user=user)
@@ -201,6 +213,8 @@ def report_all_for_employee(request):
                   "reports": reports,
                   })
 
+@login_required
+@group_required('manager')
 def employee_statistics(request):
     if request.method == 'POST':
         form = forms.SelectEmployeeAndDateForm(request.POST)
@@ -218,6 +232,8 @@ def employee_statistics(request):
                   "form": form,
                    })
 
+@login_required
+@group_required('manager')
 def project_report(request, prj_id):
     project = get_object_or_404(models.Project, pk=prj_id)
     tasks = models.Task.objects.filter(project__exact=project)
@@ -250,11 +266,15 @@ def add_project(request):
                   "form": form,
                   })
 
+@login_required
+@group_required('manager')
 def project_delete(request, prj_id):
     project = get_object_or_404(models.Project, pk=prj_id)
     project.delete()
     return redirect('projects_list')
 
+@login_required
+@group_required('manager')
 def project_detail(request, prj_id):
     project = get_object_or_404(models.Project, pk=prj_id)
     if request.method == 'GET':

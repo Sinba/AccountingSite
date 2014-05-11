@@ -12,12 +12,18 @@
 
     {% for task in tasks %}
         <tr>
+            {% if perms.accounts.change_task %}
             <td><a href={% url 'task_detail' task_id=task.id %}>{{task.task_name}}</a></td>
+            {% else %}
+            <td>{{task.task_name}}</td>
+            {% endif %}
             <td>{{task.employee}}</td>
             <td>{{task.project}}</td>
             <td>{{task.description}}</td>
         </tr>
     {% endfor %}
 </table>
+{% if perms.accounts.add_task %}
 <a href={% url 'task_add' %}>Add new task for employee</a>
+{% endif %}
 {% endblock %}
